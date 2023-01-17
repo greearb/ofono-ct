@@ -270,13 +270,13 @@ static void check_gsm_sms(const struct sms *command,
 		sms_dcs_decode(ts->dcs, NULL, &charset, NULL, NULL);
 
 		if (charset == SMS_CHARSET_8BIT)
-			g_assert(g_str_equal(cs->ud, ts->ud));
+			g_assert(g_str_equal((char*)(cs->ud), (char*)(ts->ud)));
 		else {
 			GSList *sms_list = NULL;
 			char *message;
 			sms_list = g_slist_prepend(sms_list, (void *)command);
 			message = sms_decode_text(sms_list);
-			g_assert(g_str_equal(message, ts->ud));
+			g_assert(g_str_equal((char*)(message), (char*)(ts->ud)));
 			g_free(message);
 			g_slist_free(sms_list);
 		}
